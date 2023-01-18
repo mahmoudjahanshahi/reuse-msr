@@ -30,7 +30,7 @@ echo "total not-copied blobs:";
 for i in {0..127}; do
     zcat data/notCopiedb2PFull${ver}$i.s;
 done |
-wc -l; #
+wc -l; #14,614,255,392
 
 # copiedb2tP
 for i in {0..127}; do 
@@ -39,4 +39,15 @@ for i in {0..127}; do
         <(zcat data/b2tPFull${ver}$i.copied) |
     gzip >data/copiedb2tPFull${ver}$i.s;
     echo "File $i finished!"
+done;
+
+# copiedb2P
+for i in {0..127}; do 
+    zcat data/copiedb2tPFull${ver}$i.s |
+    cut -d\; -f1,3 |
+    LC_ALL=C LANG=C sort -T. -t\; -u |
+    gzip >data/copiedb2PFull${ver}$i.s;
+    n=$(zcat data/copiedb2PFull${ver}$i.s |
+        wc -l);
+    echo "File $i finished! count is: $n";
 done;
