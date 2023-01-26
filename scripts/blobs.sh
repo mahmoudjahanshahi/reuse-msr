@@ -20,7 +20,7 @@ for i in {10,50,109}; do
     echo ;
 done;
 
-# total blobs
+# total blobs : 15,698,467,337
 echo "total copied blobs:";
 for i in {0..127}; do
     zcat data/b2tPFull${ver}$i.copied;
@@ -51,3 +51,4 @@ for i in {0..127}; do
         wc -l);
     echo "File $i finished! count is: $n";
 done;
+# copy instances count: 24,998,544,215 - 1,084,211,945 = 23,908,554,263
