@@ -41,6 +41,23 @@ for i in {0..127}; do
     echo "File $i finished!"
 done;
 
+# copiedb2ftP
+for i in {0..127..4}; do 
+    zcat data/copiedb2tPFull${ver}$i.s |
+    perl -e '$pb="";
+        while(<STDIN>){
+            chop();
+            ($b,$t,$p)=split(/;/);
+            if($b ne $pb){
+                print "$b;$t;$p\n";
+                $pb=$b;
+            }
+        }
+    ' |
+    gzip >data/copiedb2ftPFull${ver}$i.s;
+    echo "File $i is finished!";
+done;
+
 # copiedb2P
 for i in {0..127}; do 
     zcat data/copiedb2tPFull${ver}$i.s |
