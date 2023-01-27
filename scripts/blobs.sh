@@ -52,3 +52,12 @@ for i in {0..127}; do
     echo "File $i finished! count is: $n";
 done;
 # copy instances count: 24,998,544,215 - 1,084,211,945 = 23,908,554,263
+
+# copiedb2Pt
+for i in {0..127}; do 
+    zcat data/copiedb2tPFull${ver}$i.s |
+    awk -F\; '{print $1";"$3";"$2}' |
+    LC_ALL=C LANG=C sort -T. -t\; |
+    gzip >data/copiedb2PtFull${ver}$i.s;
+    echo "File $i is finished!";
+done;
