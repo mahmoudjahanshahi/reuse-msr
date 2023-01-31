@@ -96,3 +96,13 @@ for i in {0..127}; do
     gzip >data/copiedb2PftFull${ver}$i.s;
     echo "File $i is finished!";
 done;
+
+# orgP
+for i in {0..127}; do
+    zcat data/copiedb2ftPFull${ver}$i.s |
+    cut -d\; -f3 |
+    LC_ALL=C LANG=C sort -T. -u;
+done |
+LC_ALL=C LANG=C sort -T. -u |
+gzip >data/orgP.s; #31,706,416
+
