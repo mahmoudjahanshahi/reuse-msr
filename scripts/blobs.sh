@@ -78,3 +78,21 @@ for i in {0..127}; do
     gzip >data/copiedb2PtFull${ver}$i.s;
     echo "File $i is finished!";
 done;
+
+# copiedb2Pft
+for i in {0..127}; do 
+    zcat data/copiedb2PtFull${ver}$i.s |
+    perl -e '$pbp="";
+        while(<STDIN>){
+            chop();
+            ($b,$p,$t)=split(/;/);
+            $bp="$b;$p";
+            if($bp ne $pbp){
+                print "$b;$p;$t\n";
+                $pbp=$bp;
+            }
+        }
+    ' |
+    gzip >data/copiedb2PftFull${ver}$i.s;
+    echo "File $i is finished!";
+done;
