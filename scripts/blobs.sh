@@ -68,7 +68,7 @@ for i in {0..127}; do
         wc -l);
     echo "File $i finished! count is: $n";
 done;
-# copy instances count: 24,998,544,215 - 1,084,211,945 = 23,908,554,263
+# copy instances count: 24,998,544,215 - 1,084,211,945 = 23,914,332,270
 
 # copiedb2Pt
 for i in {0..127}; do 
@@ -106,3 +106,25 @@ done |
 LC_ALL=C LANG=C sort -T. -u |
 gzip >data/orgP.s; #31,706,416
 
+# copiedb2desP
+for i in {0..127}; do
+    LC_ALL=C LANG=C join -v1 \
+        <(zcat data/copiedb2PFull${ver}$i.s) \
+        <(zcat data/copiedb2ftPFull${ver}$i.s | cut -d\; -f1,3) |
+    gzip >data/copiedb2desPFull${ver}$i.s;
+    echo "Finished File $i";
+done;
+echo;
+echo "Total copy instances:";
+for i in {0..127}; do
+    zcat data/copiedb2desPFull${ver}$i.s ;
+done | wc -l;
+for i in {0..127}; do
+    zcat data/copiedb2desPFull${ver}$i.s |
+    cut -d\; -f2 |
+    LC_ALL=C LANG=C sort -T. -u ;
+done |
+LC_ALL=C LANG=C sort -T. -u |
+gzip >data/desP.s; #86,483,266
+echo;
+echo "Finished!";
