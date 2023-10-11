@@ -19,10 +19,12 @@ ver=V;
 dir="/nfs/home/audris/work/c2fb/";
 
 for i in {$i..$((i+1))}; do
+    echo "File \$i" >&2;
     LC_ALL=C LANG=C join -t\; \\
         <(zcat \${dir}b2tPFull\${ver}\$i.s) \\
         <(zcat data/b2tPFull\${ver}\$i.copied) |
     gzip >data/B2tPFull\${ver}\$i.s;
+    echo "Finished \$i";
 done;
 
 EOT
