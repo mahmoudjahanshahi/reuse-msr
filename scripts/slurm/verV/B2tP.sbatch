@@ -13,7 +13,7 @@ for i in {0..127..2}; do
 #SBATCH --partition=campus
 #SBATCH --output=B2tP.$i.o%j
 #SBATCH --error=B2tP.$i.e%j
-#SBATCH --dependency=afterok:$dep
+#SBATCH --dependency=afterany:$dep
 
 ver=V;
 dir="/nfs/home/audris/work/c2fb/";
