@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {0..127..2}; do
+for i in {0..127..4}; do
     cat > B2Pft.$i.slurm << EOT
 #!/bin/bash
 #SBATCH -A ACF-UTK0011 
@@ -15,7 +15,7 @@ for i in {0..127..2}; do
 
 ver=V;
 
-for i in {$i..$((i+1))}; do
+for i in {$i..$((i+3))}; do
     echo "File \$i" >&2;
     zcat data/B2tPFull\${ver}\$i.s |
     awk -F\; '{OFS=";";print \$1,\$3,\$2}' |

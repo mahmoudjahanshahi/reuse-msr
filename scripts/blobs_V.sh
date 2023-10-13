@@ -56,3 +56,12 @@ for i in {0..127}; do
     ' |
     gzip >data/B2PftFull${ver}$i.s;
 done;
+
+# PtB2Pt
+for i in {0..127}; do 
+    LC_ALL=C LANG=C join -t\; -o 1.3 1.2 1.1 2.2 2.3 \
+        <(zcat data/B2ftPFull${ver}$i.s) \
+        <(zcat data/B2PftFull${ver}$i.s) |
+    awk -F\; '{if ($1 != $4) print}' |
+    gzip >data/Ptb2PtFull${ver}$i.s;
+done;
