@@ -4,6 +4,7 @@ ver=V;
 dir="/nfs/home/audris/work/c2fb/";
 
 # copiedb or B
+## copied blobs
 for i in {0..127}; do
     zcat ${dir}b2tPFull${ver}$i.s |
     cut -d\; -f1,3 | 
@@ -13,7 +14,6 @@ for i in {0..127}; do
     uniq -d | 
     gzip > data/b2tPFull${ver}$i.copied;
 done;
-
 # B2tP
 for i in {0..127}; do 
     LC_ALL=C LANG=C join -t\; \
@@ -23,6 +23,7 @@ for i in {0..127}; do
 done;
 
 # B2ftP
+## frist time/project for each copied blob
 for i in {0..127}; do 
     zcat data/B2tPFull${ver}$i.s |
     perl -e '$pb="";
@@ -39,6 +40,7 @@ for i in {0..127}; do
 done;
 
 # B2Pft
+## first time in each project
 for i in {0..127}; do 
     zcat data/B2tPFull${ver}$i.s |
     awk -F\; '{OFS=";";print $1,$3,$2}' |
@@ -65,3 +67,9 @@ for i in {0..127}; do
     awk -F\; '{if ($1 != $4) print}' |
     gzip >data/Ptb2PtFull${ver}$i.s;
 done;
+
+# ver V stat
+# Total copies: 29398638763
+# Total copied blobs: 1303123050 / Total blobs: 20180503658
+# Total upstream projects: 38381865
+# Total downstream projects: 105271309
